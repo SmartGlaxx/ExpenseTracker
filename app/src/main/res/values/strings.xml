@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_income">Add Income</string>
+    <string name="menu_expense">Add Expense</string>
+    <string name="menu_budget">Add Budget</string>
+    <string-array name="expense_categories">
+        <item>Food</item>
+        <item>Rent</item>
+        <item>Clothes</item>
+        <item>Travel</item>
+        <item>Utilities</item>
+        <item>Transportation</item>
+    </string-array>
+    <string-array name="income_categories">
+        <item>Salary</item>
+        <item>Dividend</item>
+        <item>Sale</item>
+        <item>Business</item>
+        <item>Gigs</item>
+    </string-array>
+</resources>
