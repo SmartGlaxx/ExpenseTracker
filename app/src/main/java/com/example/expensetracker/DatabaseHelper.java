@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DB_VERSION = 2;
-    private static final String DB_NAME = "projectdbv2";
+    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "smartDB";
     private static final String TABLE_USERS = "usertable";
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "firstname";
@@ -44,6 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_BUDGET = "budgettable";
     private static final String BUDGET_ID = "id";
     private static final String BUDGET_AMOUNT = "amount";
+
+    private static final String BUDGET_CATEGORY = "budget_category";
     private static final String BUDGET_NOTE = "note";
 
 
@@ -80,6 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createBudgetTable = "CREATE TABLE " + TABLE_BUDGET + "("
                 + BUDGET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + BUDGET_AMOUNT + " REAL, "
+                + BUDGET_CATEGORY + " TEXT, "
                 + BUDGET_NOTE + " TEXT"
                 + ");";
 
@@ -277,6 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(BUDGET_AMOUNT, budget.getAmount());
+        values.put(BUDGET_CATEGORY, budget.getCategory());
         values.put(BUDGET_NOTE, budget.getNote());
 
         long newRowId = db.insert(TABLE_BUDGET, null, values);
@@ -348,5 +352,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return categorySums;
     }
+
+    public List<BudgetCategorySum> getBudgetByCategorySum() {
+        List<BudgetCategorySum> categorySums = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + BUDGET_CATEGORY + ", SUM(" + BUDGET_AMOUNT + ") AS " + BUDGET_AMOUNT +
+                " FROM " + TABLE_BUDGET +
+                " GROUP BY " + BUDGET_CATEGORY;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String category = cursor.getString(cursor.getColumnIndex(BUDGET_CATEGORY));
+                    double sum = cursor.getDouble(cursor.getColumnIndex(BUDGET_AMOUNT));
+                    categorySums.add(new BudgetCategorySum(category, sum));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return categorySums;
+    }
+
 
 }

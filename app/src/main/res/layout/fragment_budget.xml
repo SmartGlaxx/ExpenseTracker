@@ -28,6 +28,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleBudget" />
 
+    <Spinner
+        android:id="@+id/spinnerBudgetCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBudgetAmount" />
+
     <EditText
         android:id="@+id/editTextBudgetNote"
         android:layout_width="0dp"
@@ -36,7 +46,7 @@
         android:hint="Note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBudgetAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBudgetCategory" />
 
     <Button
         android:id="@+id/buttonBudgetSave"

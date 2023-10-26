@@ -11,6 +11,16 @@
     <string name="menu_income">Add Income</string>
     <string name="menu_expense">Add Expense</string>
     <string name="menu_budget">Add Budget</string>
+    <string name="expense_summary">Expense Summary</string>
+    <string name="expense_comparison">Expense Comparison</string>
+    <string-array name="budget_categories">
+        <item>Food</item>
+        <item>Rent</item>
+        <item>Clothes</item>
+        <item>Travel</item>
+        <item>Utilities</item>
+        <item>Transportation</item>
+    </string-array>
     <string-array name="expense_categories">
         <item>Food</item>
         <item>Rent</item>

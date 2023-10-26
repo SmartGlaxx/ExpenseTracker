@@ -28,4 +28,17 @@
         android:name="com.example.expensetracker.ui.budget.BudgetFragment"
         android:label="@string/menu_budget"
         tools:layout="@layout/fragment_budget" />
+
+    <fragment
+        android:id="@+id/nav_expense_summary"
+        android:name="com.example.expensetracker.ui.expensesummary.ExpenseSummaryFragment"
+        android:label="@string/expense_summary"
+        tools:layout="@layout/fragment_expense_summary" />
+
+    <fragment
+        android:id="@+id/nav_expense_comparison"
+        android:name="com.example.expensetracker.ui.expensecomparison.ExpenseComparisonFragment"
+        android:label="@string/expense_summary"
+        tools:layout="@layout/fragment_expense_comparison" />
+
 </navigation>

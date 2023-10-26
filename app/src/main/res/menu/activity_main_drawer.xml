@@ -20,5 +20,13 @@
             android:id="@+id/nav_budget"
             android:icon="@drawable/baseline_account_balance_wallet_24"
             android:title="@string/menu_budget" />
+        <item
+            android:id="@+id/nav_expense_summary"
+            android:icon="@drawable/baseline_bar_chart_24"
+            android:title="@string/expense_summary" />
+        <item
+            android:id="@+id/nav_expense_comparison"
+            android:icon="@drawable/baseline_insert_chart_outlined_24"
+            android:title="@string/expense_comparison" />
     </group>
 </menu>

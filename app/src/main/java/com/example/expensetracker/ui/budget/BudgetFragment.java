@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ public class BudgetFragment extends Fragment {
 
     private EditText editTextBudgetAmount;
     private EditText editTextBudgetNote;
+    private Spinner spinnerBudgetCategory;
     private Button buttonSave;
 
     public BudgetFragment() {
@@ -37,7 +40,29 @@ public class BudgetFragment extends Fragment {
 
         editTextBudgetAmount = view.findViewById(R.id.editTextBudgetAmount);
         editTextBudgetNote = view.findViewById(R.id.editTextBudgetNote);
+        spinnerBudgetCategory = view.findViewById(R.id.spinnerBudgetCategory); // Updated
         buttonSave = view.findViewById(R.id.buttonBudgetSave);
+
+        // Get the array of budget categories from resources
+        String[] budgetCategoriesArray = getResources().getStringArray(R.array.budget_categories);
+
+        // Add "Select a category" as the first item in the array
+        String[] budgetCategoriesWithTitle = new String[budgetCategoriesArray.length + 1];
+        budgetCategoriesWithTitle[0] = "Select a category"; // Title
+
+        // Copy the budgetCategoriesArray into budgetCategoriesWithTitle, starting from index 1
+        System.arraycopy(budgetCategoriesArray, 0, budgetCategoriesWithTitle, 1, budgetCategoriesArray.length);
+
+        // Create the ArrayAdapter with the modified array
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                budgetCategoriesWithTitle
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Set the adapter to the spinner
+        spinnerBudgetCategory.setAdapter(adapter);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +77,10 @@ public class BudgetFragment extends Fragment {
 
         String amountStr = editTextBudgetAmount.getText().toString();
         String note = editTextBudgetNote.getText().toString();
+        String category = spinnerBudgetCategory.getSelectedItem().toString();
 
-        if (amountStr.isEmpty() || note.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
+        if (category.equals("Select a category") || amountStr.isEmpty()) {
+            Toast.makeText(requireContext(), "Please fill in all fields and select a valid category", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -62,7 +88,7 @@ public class BudgetFragment extends Fragment {
         double amount = Double.parseDouble(amountStr);
 
         // TODO: Save the budget to a database or perform further actions
-        Budget newBudget = new Budget(amount, note);
+        Budget newBudget = new Budget(amount, category, note);
         long newRowId = databaseHelper.insertNewBudget(newBudget);
 
         if (newRowId != -1) {
@@ -74,5 +100,6 @@ public class BudgetFragment extends Fragment {
         // Clear the input fields
         editTextBudgetAmount.setText("");
         editTextBudgetNote.setText("");
+        spinnerBudgetCategory.setSelection(0);
     }
 }
