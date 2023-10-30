@@ -1,40 +1,4 @@
 package com.example.expensetracker.ui.expense;
-//
-//import android.os.Bundle;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.TextView;
-//
-//import androidx.annotation.NonNull;
-//import androidx.fragment.app.Fragment;
-//import androidx.lifecycle.ViewModelProvider;
-//
-//import com.example.expensetracker.databinding.FragmentExpenseBinding;
-//
-//public class ExpenseFragment extends Fragment {
-//
-//    private FragmentExpenseBinding binding;
-//
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//                             ViewGroup container, Bundle savedInstanceState) {
-//        ExpenseViewModel slideshowViewModel =
-//                new ViewModelProvider(this).get(ExpenseViewModel.class);
-//
-//            binding = FragmentExpenseBinding.inflate(inflater, container, false);
-//        View root = binding.getRoot();
-//
-//        final TextView textView = binding.textSlideshow;
-//        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-//        return root;
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        binding = null;
-//    }
-//}
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -173,6 +137,7 @@ public class ExpenseFragment extends Fragment {
 
         // Clear the input fields
         spinnerCategory.setSelection(0);
+        editTextItem.setText("");
         editTextAmount.setText("");
         calendar = Calendar.getInstance(); // Reset the date to the current date
         updateDateButtonText();

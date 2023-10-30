@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "smartDB";
+    private static final String DB_NAME = "smartDB2";
     private static final String TABLE_USERS = "usertable";
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "firstname";
@@ -376,6 +376,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
         return categorySums;
+    }
+
+
+    public double getIncomeSum() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + INCOME_AMOUNT + ") AS incomeSum FROM " + TABLE_INCOME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        double incomeSum = 0.0;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                incomeSum = cursor.getDouble(cursor.getColumnIndex("incomeSum"));
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return incomeSum;
+    }
+
+
+    public double getExpenseSum() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + EXPENSE_AMOUNT + ") AS expenseSum FROM " + TABLE_EXPENSES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        double expenseSum = 0.0;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                expenseSum = cursor.getDouble(cursor.getColumnIndex("expenseSum"));
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return expenseSum;
     }
 
 

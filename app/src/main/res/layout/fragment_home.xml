@@ -1,9 +1,101 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ap="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     >
 
 
+    <TextView
+        android:id="@+id/expenseTextView"
+        android:layout_width="123dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Expenses"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        ap:layout_constraintEnd_toEndOf="parent"
+        ap:layout_constraintHorizontal_bias="0.498"
+        ap:layout_constraintStart_toStartOf="parent"
+        ap:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <ListView
+        android:id="@+id/expenseListView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp"
+        ap:layout_constraintTop_toBottomOf="@+id/expenseTextView"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <TextView
+        android:id="@+id/detailsLabel"
+        android:layout_width="409dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="22sp"
+        ap:layout_constraintBottom_toBottomOf="parent"
+        ap:layout_constraintEnd_toEndOf="parent"
+        ap:layout_constraintStart_toStartOf="parent"
+        ap:layout_constraintTop_toTopOf="parent" />
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/horizontalBarChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="4dp"
+        ap:layout_constraintTop_toBottomOf="@+id/detailsLabel"
+        tools:layout_editor_absoluteX="-1dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        ap:layout_constraintTop_toBottomOf="@+id/horizontalBarChart"
+        tools:layout_editor_absoluteX="-158dp">
+
+        <!-- Income Legend -->
+        <View
+            android:id="@+id/incomeLegend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/blue"
+            ap:layout_constraintTop_toTopOf="parent"
+            ap:layout_constraintStart_toStartOf="parent"
+            ap:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/incomeLegendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income"
+            ap:layout_constraintTop_toTopOf="parent"
+            ap:layout_constraintStart_toEndOf="@+id/incomeLegend"
+            ap:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Expense Legend -->
+        <View
+            android:id="@+id/expenseLegend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:background="@color/red"
+            ap:layout_constraintTop_toTopOf="parent"
+            ap:layout_constraintStart_toEndOf="@+id/incomeLegendText"
+            ap:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/expenseLegendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense"
+            ap:layout_constraintTop_toTopOf="parent"
+            ap:layout_constraintStart_toEndOf="@+id/expenseLegend"
+            ap:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
