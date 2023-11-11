@@ -9,7 +9,14 @@
         android:id="@+id/nav_home"
         android:name="com.example.expensetracker.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_incomeListFragment"
+            app:destination="@id/nav_income_list" />
+        <action
+            android:id="@+id/action_homeFragment_to_expenseListFragment"
+            app:destination="@id/nav_expense_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_income"
@@ -40,5 +47,16 @@
         android:name="com.example.expensetracker.ui.expensecomparison.ExpenseComparisonFragment"
         android:label="@string/expense_comparison"
         tools:layout="@layout/fragment_expense_comparison" />
+    <fragment
+        android:id="@+id/nav_income_list"
+        android:name="com.example.expensetracker.ui.incomelist.IncomeListFragment"
+        android:label="@string/income_list"
+        tools:layout="@layout/fragment_income_list" />
+
+    <fragment
+        android:id="@+id/nav_expense_list"
+        android:name="com.example.expensetracker.ui.expenselist.ExpenseListFragment"
+        android:label="@string/expense_list"
+        tools:layout="@layout/fragment_expense_list" />
 
 </navigation>

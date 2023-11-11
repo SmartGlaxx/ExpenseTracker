@@ -288,6 +288,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public List<Income> getAllIncome() {
+        List<Income> incomeList = new ArrayList<>();
+
+        // Define the columns you want to retrieve from the income table
+        String[] columns = {
+                INCOME_ID,
+                INCOME_SOURCE,
+                INCOME_AMOUNT,
+                INCOME_DATE
+        };
+
+        // Create a readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query the database to retrieve all rows from the income table
+        Cursor cursor = db.query(TABLE_INCOME, columns, null, null, null, null, null);
+
+        // Loop through the cursor to create Income objects and add them to the list
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(INCOME_ID));
+                String source = cursor.getString(cursor.getColumnIndex(INCOME_SOURCE));
+                double amount = cursor.getDouble(cursor.getColumnIndex(INCOME_AMOUNT));
+                String date = cursor.getString(cursor.getColumnIndex(INCOME_DATE));
+
+                Income income = new Income(source, amount, date);
+                incomeList.add(income);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return incomeList;
+    }
+
 
     public List<Expense> getAllExpenses() {
         List<Expense> expenseList = new ArrayList<>();
