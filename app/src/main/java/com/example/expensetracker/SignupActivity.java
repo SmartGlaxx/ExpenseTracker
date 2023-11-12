@@ -43,12 +43,17 @@ public class SignupActivity extends AppCompatActivity {
                 String confirmPassword = etConfirmPassword.getText().toString();
 
                 if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(SignupActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (!password.equals(confirmPassword)) {
-                    Toast.makeText(SignupActivity.this, "Password mismatch", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Password mismatch", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (password.length() < 8) {
+                    Toast.makeText(SignupActivity.this, "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
                     return;
                 }
 

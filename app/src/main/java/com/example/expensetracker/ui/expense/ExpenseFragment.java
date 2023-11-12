@@ -1,6 +1,11 @@
 package com.example.expensetracker.ui.expense;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +37,9 @@ public class ExpenseFragment extends Fragment {
     private Button buttonDate, buttonSave;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
+    private static final String CHANNEL_ID = "expense_tracker_channel_id";
+    private static final String CHANNEL_NAME = "Expense Tracker";
+    private static final String CHANNEL_DESCRIPTION = "An expense tracking application";
 
     public ExpenseFragment() {
     }
@@ -131,6 +139,17 @@ public class ExpenseFragment extends Fragment {
         double amount = Double.parseDouble(amountStr);
         String date = dateFormat.format(calendar.getTime());
 
+        double budgetAmount = databaseHelper.getBudgetSumForCategory(category);
+
+        // Calculate the sum of all expenses for the category
+        double totalExpenseAmount = databaseHelper.getTotalExpenseSumForCategory(category);
+
+        // Check if the expense, along with existing expenses, exceeds the budget for the category
+        if ((amount + totalExpenseAmount) > budgetAmount) {
+            // Generate a notification
+            generateNotification(requireContext() ,"Expense more than budget", "You exceeded the budget for " + category);
+        }
+
         // TODO: Save the expense to a database or perform further actions
         Expense newExpense = new Expense(item, category, amount, date);
         databaseHelper.insertNewExpense(newExpense);
@@ -143,5 +162,48 @@ public class ExpenseFragment extends Fragment {
         updateDateButtonText();
 
         Toast.makeText(requireContext(), "Expense saved", Toast.LENGTH_LONG).show();
+    }
+
+
+    private void generateNotification(Context context, String title, String content) {
+
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create a notification channel (required for Android Oreo and above)
+        createNotificationChannel(context);
+
+        // Build the notification
+        Notification notification = new Notification.Builder(context, CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(R.drawable.baseline_account_balance_wallet_24)
+                .build();
+
+        // Show the notification
+        if (notificationManager != null) {
+            notificationManager.notify(1, notification); // Use a unique ID for each notification
+        }
+
+    }
+
+
+
+    private static void createNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription(CHANNEL_DESCRIPTION);
+
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
     }
 }

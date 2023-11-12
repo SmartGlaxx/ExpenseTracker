@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "smartDB2";
+    private static final String DB_NAME = "expenseTrackerDB";
     private static final String TABLE_USERS = "usertable";
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "firstname";
@@ -438,6 +438,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT SUM(" + EXPENSE_AMOUNT + ") AS expenseSum FROM " + TABLE_EXPENSES;
         Cursor cursor = db.rawQuery(query, null);
+
+        double expenseSum = 0.0;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                expenseSum = cursor.getDouble(cursor.getColumnIndex("expenseSum"));
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return expenseSum;
+    }
+
+
+    public double getBudgetSumForCategory(String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + BUDGET_AMOUNT + ") AS budgetSum FROM " + TABLE_BUDGET +
+                " WHERE " + BUDGET_CATEGORY + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{category});
+
+        double budgetSum = 0.0;
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                budgetSum = cursor.getDouble(cursor.getColumnIndex("budgetSum"));
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return budgetSum;
+    }
+
+    public double getTotalExpenseSumForCategory(String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + EXPENSE_AMOUNT + ") AS expenseSum FROM " + TABLE_EXPENSES +
+                " WHERE " + EXPENSE_CATEGORY + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{category});
 
         double expenseSum = 0.0;
 
