@@ -1,8 +1,11 @@
 package com.example.expensetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -38,6 +41,26 @@ public class MainActivity extends AppCompatActivity {
 //        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        View headerView = navigationView.getHeaderView(0); // 0 is the index of the header layout
+
+        // Access the TextView in the header
+        TextView navHeaderFirstName = headerView.findViewById(R.id.navHeaderFirstName);
+        TextView navHeaderEmail = headerView.findViewById(R.id.navHeaderEmail);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("email")) {
+            String email = intent.getStringExtra("email");
+            String firstName = dbHelper.getFirstNameByEmail(email);
+            navHeaderFirstName.setText("Welcome " + firstName);
+            navHeaderEmail.setText(email);
+
+        }
+     ;
+
+
+//        navHeaderText.setTextColor(getResources().getColor(R.color.blue));
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

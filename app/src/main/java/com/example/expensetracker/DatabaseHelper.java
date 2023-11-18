@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "expenseTrackerDB";
+    private static final String DB_NAME = "expenseTrackerDB1";
     private static final String TABLE_USERS = "usertable";
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "firstname";

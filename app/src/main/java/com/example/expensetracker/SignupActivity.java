@@ -59,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 String hashedPassword = hashPassword(password);
                 if (dbHelper.doesEmailExist(email) == true) {
-                    Toast.makeText(SignupActivity.this, "Email Exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Email Exists. Please sign-in.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     User newUser = new User(firstName, lastName, email, phone, hashedPassword);

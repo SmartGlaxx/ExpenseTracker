@@ -5,6 +5,9 @@ public class Budget {
     private String category;
     private String note;
 
+    public Budget(){
+
+    }
     // Constructor
     public Budget(double amount, String category, String note) {
         this.amount = amount;

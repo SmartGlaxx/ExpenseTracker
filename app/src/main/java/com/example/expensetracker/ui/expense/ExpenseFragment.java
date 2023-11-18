@@ -144,10 +144,19 @@ public class ExpenseFragment extends Fragment {
         // Calculate the sum of all expenses for the category
         double totalExpenseAmount = databaseHelper.getTotalExpenseSumForCategory(category);
 
+        // Calculate the sum of all income
+        double totalIncomeAmount = databaseHelper.getIncomeSum();
+
         // Check if the expense, along with existing expenses, exceeds the budget for the category
         if ((amount + totalExpenseAmount) > budgetAmount) {
             // Generate a notification
             generateNotification(requireContext() ,"Expense more than budget", "You exceeded the budget for " + category);
+        }
+
+        // Check if the expense, along with existing expenses, exceeds the budget for the category
+        if ((amount + totalExpenseAmount) > totalIncomeAmount) {
+            // Generate a notification
+            generateNotification(requireContext() ,"Expense more than income", "You are spending more than your income");
         }
 
         // TODO: Save the expense to a database or perform further actions
