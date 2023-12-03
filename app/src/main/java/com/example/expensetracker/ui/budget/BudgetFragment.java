@@ -43,17 +43,17 @@ public class BudgetFragment extends Fragment {
         spinnerBudgetCategory = view.findViewById(R.id.spinnerBudgetCategory); // Updated
         buttonSave = view.findViewById(R.id.buttonBudgetSave);
 
-        // Get the array of budget categories from resources
+        // Getting the array of budget categories from resources
         String[] budgetCategoriesArray = getResources().getStringArray(R.array.budget_categories);
 
-        // Add "Select a category" as the first item in the array
+        // Adding "Select a category" as the first item in the array
         String[] budgetCategoriesWithTitle = new String[budgetCategoriesArray.length + 1];
-        budgetCategoriesWithTitle[0] = "Select a category"; // Title
+        budgetCategoriesWithTitle[0] = "Select a category";
 
-        // Copy the budgetCategoriesArray into budgetCategoriesWithTitle, starting from index 1
+        // Copying the budgetCategoriesArray into budgetCategoriesWithTitle
         System.arraycopy(budgetCategoriesArray, 0, budgetCategoriesWithTitle, 1, budgetCategoriesArray.length);
 
-        // Create the ArrayAdapter with the modified array
+        // Creating the ArrayAdapter with the modified array
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -61,7 +61,7 @@ public class BudgetFragment extends Fragment {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Set the adapter to the spinner
+        // Setting the adapter to the spinner
         spinnerBudgetCategory.setAdapter(adapter);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class BudgetFragment extends Fragment {
             return;
         }
 
-        // Parse the amount as a double
+        // Parsing the amount as a double
         double amount = Double.parseDouble(amountStr);
 
         // TODO: Save the budget to a database or perform further actions
@@ -97,7 +97,7 @@ public class BudgetFragment extends Fragment {
             Toast.makeText(requireContext(), "Failed to save budget", Toast.LENGTH_LONG).show();
         }
 
-        // Clear the input fields
+        // Clearing the input fields
         editTextBudgetAmount.setText("");
         editTextBudgetNote.setText("");
         spinnerBudgetCategory.setSelection(0);

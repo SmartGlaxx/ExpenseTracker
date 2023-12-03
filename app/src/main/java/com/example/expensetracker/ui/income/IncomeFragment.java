@@ -51,15 +51,15 @@ public class IncomeFragment extends Fragment {
         buttonDate = view.findViewById(R.id.buttonDate);
         buttonSave = view.findViewById(R.id.buttonSave);
 
-        // Get the array of categories from resources
+        // Getting the array of categories from resources
         String[] categoriesArray = getResources().getStringArray(R.array.income_categories);
 
-        // Add the title as the first item in the array
+        // Adding the title as the first item in the array
         String[] categoriesWithTitle = new String[categoriesArray.length + 1];
         categoriesWithTitle[0] = "Income source"; // Title
         System.arraycopy(categoriesArray, 0, categoriesWithTitle, 1, categoriesArray.length);
 
-        // Create the ArrayAdapter with the modified array
+        // Creating the ArrayAdapter with the modified array
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -67,13 +67,13 @@ public class IncomeFragment extends Fragment {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Set the adapter to the spinner
+        // Setting the adapter to the spinner
         spinnerIncomeSource.setAdapter(adapter);
 
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-        // Set up the date picker dialog
+        // Setting up the date picker dialog
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +126,7 @@ public class IncomeFragment extends Fragment {
             return;
         }
 
-        // Parse the amount as a double
+        // Parsing the amount as a double
         double amount = Double.parseDouble(amountStr);
         String date = dateFormat.format(calendar.getTime());
 
@@ -134,10 +134,10 @@ public class IncomeFragment extends Fragment {
         Income newIncome = new Income(source, amount, date);
         databaseHelper.insertNewIncome(newIncome);
 
-        // Clear the input fields
+        // Clearing the input fields
         spinnerIncomeSource.setSelection(0);
         editTextIncomeAmount.setText("");
-        calendar = Calendar.getInstance(); // Reset the date to the current date
+        calendar = Calendar.getInstance();
         updateDateButtonText();
 
         Toast.makeText(requireContext(), "Income saved", Toast.LENGTH_LONG).show();

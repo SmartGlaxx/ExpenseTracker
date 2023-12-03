@@ -60,15 +60,15 @@ public class ExpenseFragment extends Fragment {
         buttonDate = view.findViewById(R.id.buttonDate);
         buttonSave = view.findViewById(R.id.buttonSave);
 
-        // Get the array of categories from resources
+        // Getting the array of categories from resources
         String[] categoriesArray = getResources().getStringArray(R.array.expense_categories);
 
-        // Add the title as the first item in the array
+        // Adding the title as the first item in the array
         String[] categoriesWithTitle = new String[categoriesArray.length + 1];
         categoriesWithTitle[0] = "Select a category"; // Title
         System.arraycopy(categoriesArray, 0, categoriesWithTitle, 1, categoriesArray.length);
 
-        // Create the ArrayAdapter with the modified array
+        // Creating the ArrayAdapter with the modified array
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -76,13 +76,13 @@ public class ExpenseFragment extends Fragment {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Set the adapter to the spinner
+        // Setting the adapter to the spinner
         spinnerCategory.setAdapter(adapter);
 
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-        // Set up the date picker dialog
+        // Setting up the date picker dialog
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,35 +135,28 @@ public class ExpenseFragment extends Fragment {
             return;
         }
 
-        // Parse the amount as a double
+        // Parsing the amount as a double
         double amount = Double.parseDouble(amountStr);
         String date = dateFormat.format(calendar.getTime());
 
         double budgetAmount = databaseHelper.getBudgetSumForCategory(category);
 
-        // Calculate the sum of all expenses for the category
+        // Calculating the sum of all expenses for the category
         double totalExpenseAmount = databaseHelper.getTotalExpenseSumForCategory(category);
 
-        // Calculate the sum of all income
+        // Calculating the sum of all income
         double totalIncomeAmount = databaseHelper.getIncomeSum();
 
-        // Check if the expense, along with existing expenses, exceeds the budget for the category
+        // Checking if the expense, along with existing expenses, exceeds the budget for the category
         if ((amount + totalExpenseAmount) > budgetAmount) {
-            // Generate a notification
+            // Generating a notification
             generateNotification(requireContext() ,"Expense more than budget", "You exceeded the budget for " + category);
         }
 
-        // Check if the expense, along with existing expenses, exceeds the budget for the category
-        if ((amount + totalExpenseAmount) > totalIncomeAmount) {
-            // Generate a notification
-            generateNotification(requireContext() ,"Expense more than income", "You are spending more than your income");
-        }
-
-        // TODO: Save the expense to a database or perform further actions
         Expense newExpense = new Expense(item, category, amount, date);
         databaseHelper.insertNewExpense(newExpense);
 
-        // Clear the input fields
+        // Clearing the input fields
         spinnerCategory.setSelection(0);
         editTextItem.setText("");
         editTextAmount.setText("");
@@ -179,17 +172,17 @@ public class ExpenseFragment extends Fragment {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Create a notification channel (required for Android Oreo and above)
+        // Creating a notification channel (required for Android Oreo and above)
         createNotificationChannel(context);
 
-        // Build the notification
+        // Building the notification
         Notification notification = new Notification.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.baseline_account_balance_wallet_24)
                 .build();
 
-        // Show the notification
+        // Showing the notification
         if (notificationManager != null) {
             notificationManager.notify(1, notification); // Use a unique ID for each notification
         }

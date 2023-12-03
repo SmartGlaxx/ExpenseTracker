@@ -1,105 +1,4 @@
 package com.example.expensetracker.ui.expensesummary;
-//
-//import androidx.lifecycle.ViewModelProvider;
-//
-//import android.graphics.Color;
-//import android.os.Bundle;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import androidx.annotation.NonNull;
-//import androidx.fragment.app.Fragment;
-//
-//import com.example.expensetracker.CategoryAxisValueFormatter;
-//import com.example.expensetracker.CategorySum;
-//import com.example.expensetracker.DatabaseHelper;
-//import com.example.expensetracker.R;
-//import com.github.mikephil.charting.charts.BarChart;
-//import com.github.mikephil.charting.data.BarData;
-//import com.github.mikephil.charting.data.BarDataSet;
-//import com.github.mikephil.charting.data.BarEntry;
-//import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-//import com.github.mikephil.charting.components.XAxis;
-//import com.github.mikephil.charting.components.YAxis;
-//
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//import android.os.Bundle;
-//
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//import androidx.fragment.app.Fragment;
-//
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//
-//import com.example.expensetracker.R;
-//
-//public class ExpenseSummaryFragment extends Fragment {
-//
-//    private BarChart barChart;
-//    private DatabaseHelper databaseHelper;
-//    private List<String> predefinedCategories;
-//
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View root = inflater.inflate(R.layout.fragment_expense_summary, container, false);
-//        barChart = root.findViewById(R.id.barChart);
-//        databaseHelper = new DatabaseHelper(requireContext());
-//
-//        // Define predefined categories
-//        predefinedCategories = new ArrayList<>();
-//        predefinedCategories.add("Food");
-//        predefinedCategories.add("Rent");
-//        predefinedCategories.add("Clothes");
-//        predefinedCategories.add("Travel");
-//        predefinedCategories.add("Utilities");
-//        predefinedCategories.add("Transportation");
-//
-//        // Fetch expenses from the database and calculate sums by category
-//        List<CategorySum> categorySums = databaseHelper.getExpensesByCategorySum();
-//
-//        // Prepare data for the bar chart
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//        ArrayList<String> labels = new ArrayList<>();
-//
-//        Map<String, Float> categorySumMap = new HashMap<>();
-//        for (CategorySum categorySum : categorySums) {
-//            categorySumMap.put(categorySum.getCategory(), (float) categorySum.getSum());
-//        }
-//
-//        for (String category : predefinedCategories) {
-//            float sum = categorySumMap.getOrDefault(category, 0.0f);
-//            entries.add(new BarEntry(entries.size(), sum));
-//            labels.add(category);
-//        }
-//
-//        BarDataSet barDataSet = new BarDataSet(entries, "Category Sums");
-//        barDataSet.setColor(Color.RED);
-//        BarData barData = new BarData(barDataSet);
-//
-//        barChart.setData(barData);
-//        barChart.getXAxis().setValueFormatter(new CategoryAxisValueFormatter(labels));
-//        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-//        barChart.setDrawValueAboveBar(true);
-//        barChart.getDescription().setText("Expense Categories");
-//
-//        // Disable the right Y-axis
-//        YAxis rightAxis = barChart.getAxisRight();
-//        rightAxis.setEnabled(false);
-//
-//        barChart.notifyDataSetChanged();
-//        barChart.invalidate();
-//
-//        return root;
-//    }
-//
-//}
-
-
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -141,7 +40,7 @@ public class ExpenseSummaryFragment extends Fragment {
         barChart = root.findViewById(R.id.barChart);
         databaseHelper = new DatabaseHelper(requireContext());
 
-        // Define predefined categories
+        // Defining predefined categories
         predefinedCategories = new ArrayList<>();
         predefinedCategories.add("Food");
         predefinedCategories.add("Rent");
@@ -163,7 +62,7 @@ public class ExpenseSummaryFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            // Fetch expenses from the database and calculate sums by category
+            // Fetching expenses from the database and calculate sums by category
             categorySums = databaseHelper.getExpensesByCategorySum();
 
             entries = new ArrayList<>();
@@ -185,7 +84,7 @@ public class ExpenseSummaryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            // Update the UI thread with the fetched and prepared data
+            // Updating the UI thread with the fetched and prepared data
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -199,7 +98,7 @@ public class ExpenseSummaryFragment extends Fragment {
                     barChart.setDrawValueAboveBar(true);
                     barChart.getDescription().setText("Expense Categories");
 
-                    // Disable the right Y-axis
+                    // Disabling the right Y-axis
                     YAxis rightAxis = barChart.getAxisRight();
                     rightAxis.setEnabled(false);
 

@@ -61,10 +61,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-//    private HorizontalBarChart horizontalBarChart;
     private ListView listView;
     private List<Expense> expenseList;
-//    private TextView detailsLabel;
+
     private Handler handler;
     private PieChart pieChart;
     private double incomeSum;
@@ -79,7 +78,7 @@ public class HomeFragment extends Fragment {
         pieChart = root.findViewById(R.id.pieChart);
         initializePieChart();
 
-        // Fetch expenses from database using a DatabaseHelper
+        // Fetching expenses from database using a DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(requireContext());
         expenseList = databaseHelper.getAllExpenses();
 
@@ -106,18 +105,18 @@ public class HomeFragment extends Fragment {
         entries.add(new PieEntry((float) incomeSum, 0));
         entries.add(new PieEntry((float) expenseSum, 1));
 
-        // Create a data set for the pie chart
+        // Data set for the pie chart
         PieDataSet dataSet = new PieDataSet(entries, "Income and Expense");
         dataSet.setColors(new int[]{R.color.blue, R.color.red}, getContext());
 
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(12f);
-        // Create a data object and set it to the chart
+        // Creating a data object and set it to the chart
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(pieChart));
         pieChart.setData(data);
 
-        // Refresh the chart
+        // Refreshing the chart
         pieChart.invalidate();
 
         Intent intent = getActivity().getIntent();

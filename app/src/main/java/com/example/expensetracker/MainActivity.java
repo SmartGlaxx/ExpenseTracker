@@ -31,18 +31,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        View headerView = navigationView.getHeaderView(0); // 0 is the index of the header layout
+        View headerView = navigationView.getHeaderView(0);
 
         // Access the TextView in the header
         TextView navHeaderFirstName = headerView.findViewById(R.id.navHeaderFirstName);
@@ -58,11 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
      ;
 
-
-//        navHeaderText.setTextColor(getResources().getColor(R.color.blue));
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // Passing each menu ID as a set of Ids
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_income, R.id.nav_expense, R.id.nav_budget, R.id.nav_expense_summary, R.id.nav_expense_comparison)
                 .setOpenableLayout(drawer)
@@ -74,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflating the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "expenseTrackerDB1";
+    private static final String DB_NAME = "expenseTrackerDataBase";
     private static final String TABLE_USERS = "usertable";
     private static final String USER_ID = "id";
     private static final String USER_FIRST_NAME = "firstname";
@@ -95,6 +95,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INCOME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGET);
         onCreate(db);
     }
 
@@ -114,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValues.put(USER_EMAIL, email);
         cValues.put(USER_PHONE, phone);
         cValues.put(USER_PASSWORD, password);
-        Log.d("Val", firstName + " " + lastName + " " + email + " " + phone + " " + password);
+
 
         try {
             long newRowId = db.insertOrThrow(TABLE_USERS, null, cValues);
@@ -299,13 +302,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INCOME_DATE
         };
 
-        // Create a readable database
+
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Query the database to retrieve all rows from the income table
         Cursor cursor = db.query(TABLE_INCOME, columns, null, null, null, null, null);
 
-        // Loop through the cursor to create Income objects and add them to the list
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(INCOME_ID));
@@ -328,7 +329,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Expense> getAllExpenses() {
         List<Expense> expenseList = new ArrayList<>();
 
-        // Define the columns you want to retrieve from the expenses table
         String[] columns = {
                 EXPENSE_ID,
                 EXPENSE_ITEM,
@@ -337,13 +337,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 EXPENSE_DATE
         };
 
-        // Create a readable database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Query the database to retrieve all rows from the expenses table
         Cursor cursor = db.query(TABLE_EXPENSES, columns, null, null, null, null, null);
 
-        // Loop through the cursor to create Expense objects and add them to the list
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(EXPENSE_ID));

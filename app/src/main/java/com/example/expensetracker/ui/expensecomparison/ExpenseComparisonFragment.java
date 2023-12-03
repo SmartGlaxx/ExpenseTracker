@@ -62,8 +62,6 @@ public class ExpenseComparisonFragment extends Fragment {
             List<CategorySum> expenseCategorySums = databaseHelper.getExpensesByCategorySum();
             List<BudgetCategorySum> budgetCategorySums = databaseHelper.getBudgetByCategorySum();
 
-//            int[] colors = new int[]{Color.RED, getResources().getColor(R.color.gray_400)};
-
             for (int i = 0; i < predefinedCategories.size(); i++) {
                 String category = predefinedCategories.get(i);
                 float expenseSum = 0.0f;

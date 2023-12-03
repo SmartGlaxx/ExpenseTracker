@@ -7,7 +7,6 @@ public class Expense {
     private String date;
 
     public Expense() {
-        // Default constructor
     }
 
     public Expense(String item, String category, double amount, String date) {

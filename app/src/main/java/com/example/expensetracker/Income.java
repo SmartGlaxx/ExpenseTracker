@@ -6,7 +6,6 @@ public class Income {
     private String date;
 
     public Income() {
-        // Default constructor
     }
 
     public Income(String source, double amount, String date) {

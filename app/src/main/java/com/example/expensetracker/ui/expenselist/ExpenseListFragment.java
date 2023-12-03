@@ -48,14 +48,14 @@ public class ExpenseListFragment extends Fragment {
 
         listView = view.findViewById(R.id.expenseListView);
 
-        // Fetch expense from database using a DatabaseHelper
+        // Fetching expense from database using a DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(requireContext());
         expenseList = databaseHelper.getAllExpenses();
 
         if (expenseList.isEmpty()) {
             listView.setAdapter(null);
         } else {
-            // Create an adapter for the list
+            // Creating an adapter for the list
             adapter = new ArrayAdapter<Expense>(getContext(), R.layout.expense_item, expenseList) {
                 @NonNull
                 @Override
@@ -120,7 +120,7 @@ public class ExpenseListFragment extends Fragment {
 
             listView.setAdapter(adapter);
 
-            // Set up the SearchView for filtering the list
+            // Setting up the SearchView for filtering the list
             SearchView searchView = view.findViewById(R.id.searchView);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -154,12 +154,12 @@ public class ExpenseListFragment extends Fragment {
     }
 
     private void refreshList() {
-        // Fetch expense from the database using a DatabaseHelper
+        // Fetching expense from the database using a DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(requireContext());
         expenseList.clear();
         expenseList.addAll(databaseHelper.getAllExpenses());
 
-        // Notify the adapter that the data set has changed
+        // Notifying the adapter that the data set has changed
         adapter.notifyDataSetChanged();
 
         SearchView searchView = requireView().findViewById(R.id.searchView);

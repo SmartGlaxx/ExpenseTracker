@@ -48,14 +48,14 @@ public class IncomeListFragment extends Fragment {
 
         listView = view.findViewById(R.id.incomeListView);
 
-        // Fetch income from database using a DatabaseHelper
+        // Fetching income from database using a DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(requireContext());
         incomeList = databaseHelper.getAllIncome();
 
         if (incomeList.isEmpty()) {
             listView.setAdapter(null);
         } else {
-            // Create an adapter for the list
+            // Creating an adapter for the list
             adapter = new ArrayAdapter<Income>(getContext(), R.layout.income_item, incomeList) {
                 @NonNull
                 @Override
@@ -86,10 +86,9 @@ public class IncomeListFragment extends Fragment {
 
                             List<Income> filteredList = new ArrayList<>();
                             if (constraint == null || constraint.length() == 0) {
-                                // If the search string is empty, show the entire list
                                 filteredList.addAll(incomeList);
                             } else {
-                                // Filter the list based on the constraint (search string)
+                                // Filtering the list based on the constraint (search string)
                                 for (Income income : incomeList) {
                                     if (income.getSource().toLowerCase().contains(constraint.toString().toLowerCase())) {
                                         filteredList.add(income);
@@ -118,7 +117,7 @@ public class IncomeListFragment extends Fragment {
 
             listView.setAdapter(adapter);
 
-            // Set up the SearchView for filtering the list
+            // Setting up the SearchView for filtering the list
             SearchView searchView = view.findViewById(R.id.searchView);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -152,12 +151,12 @@ public class IncomeListFragment extends Fragment {
     }
 
     private void refreshList() {
-        // Fetch income from the database using a DatabaseHelper
+        // Fetching income from the database using a DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(requireContext());
         incomeList.clear();
         incomeList.addAll(databaseHelper.getAllIncome());
 
-        // Notify the adapter that the data set has changed
+        // Notifying the adapter that the data set has changed
         adapter.notifyDataSetChanged();
 
         SearchView searchView = requireView().findViewById(R.id.searchView);
